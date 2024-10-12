@@ -14,6 +14,6 @@ internal class NetworkApiModule {
         appConfig: AppConfig,
         okHttpClient: OkHttpClient,
         json: Json,
-    ) = RetrofitNetwork(appConfig, okHttpClient, json)
+    ): NetworkDataSource = RetrofitNetwork(appConfig, okHttpClient, json)
 
 }

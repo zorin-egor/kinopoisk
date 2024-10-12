@@ -8,4 +8,6 @@ interface FilmsRepository {
 
     fun getFilms(): Flow<Result<List<Film>>>
 
+    fun getFilm(id: Long): Flow<Result<Film>>
+
 }

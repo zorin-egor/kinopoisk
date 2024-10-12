@@ -14,6 +14,9 @@ interface FilmsDao {
     @Query("SELECT * FROM Films ORDER BY localized_name")
     fun getFilms(): Flow<List<FilmEntity>>
 
+    @Query("SELECT * FROM Films WHERE film_id = :filmId")
+    fun getFilmById(filmId: Long): Flow<FilmEntity?>
+
     @Upsert
     suspend fun insert(item: FilmEntity)
 

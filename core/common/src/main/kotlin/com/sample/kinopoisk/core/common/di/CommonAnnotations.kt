@@ -10,3 +10,11 @@ enum class Dispatchers {
     Default,
     IO,
 }
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+annotation class DefaultScope
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+annotation class IoScope

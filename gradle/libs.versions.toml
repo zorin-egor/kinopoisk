@@ -29,12 +29,13 @@ androidxComposeConstaint = "1.1.0-beta01"
 androidxBrowser = "1.8.0"
 kotlinxDatetime = "0.6.1"
 accompanist = "0.36.0"
-turbine = "1.1.0"
 androidxTestCore = "1.6.1"
 androidxTestRunner = "1.6.2"
 androidxTestRules = "1.6.1"
 koin-bom = "3.5.0"
 koin-annotations = "1.4.0-RC4"
+androidxComposeFragment = "1.8.4"
+androidxNavigationFragments = "2.8.2"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
@@ -62,6 +63,10 @@ androidx-browser = { group = "androidx.browser", name = "browser", version.ref =
 androidx-lifecycle-runtimeCompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
+androidx-fragment-compose = { module = "androidx.fragment:fragment-compose", version.ref = "androidxComposeFragment" }
+
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidxNavigationFragments" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigationFragments" }
 
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -95,7 +100,6 @@ androidx-compose-ui-testManifest = { module = "androidx.compose.ui:ui-test-manif
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
@@ -133,4 +137,9 @@ network = [
     "square-retrofit2",
     "square-retrofit2-gson-converter",
     "retrofit-kotlin-serialization"
+]
+coil = [
+    "coil-kt",
+    "coil-kt-compose",
+    "coil-kt-svg"
 ]

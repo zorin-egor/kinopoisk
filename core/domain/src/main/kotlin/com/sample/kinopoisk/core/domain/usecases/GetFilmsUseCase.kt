@@ -5,9 +5,12 @@ import com.sample.kinopoisk.core.common.di.Dispatchers
 import com.sample.kinopoisk.core.common.result.Result
 import com.sample.kinopoisk.core.data.repositories.films.FilmsRepository
 import com.sample.kinopoisk.core.model.Film
+import com.sample.kinopoisk.core.model.FilmsAndGenres
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import java.util.TreeSet
 
 
 class GetFilmsUseCase(
@@ -15,7 +18,29 @@ class GetFilmsUseCase(
     @Dispatcher(Dispatchers.IO) val dispatcher: CoroutineDispatcher,
 ) {
 
-    operator fun invoke(): Flow<Result<List<Film>>> = repository.getFilms()
-        .flowOn(dispatcher)
+    operator fun invoke(filter: String? = null): Flow<Result<FilmsAndGenres>> = repository.getFilms()
+        .map { result ->
+            when(result) {
+                Result.Loading -> Result.Loading
+                is Result.Error -> result
+                is Result.Success -> filterByGenres(result.data, filter)
+                        .let(::mapToGenresAndFilms)
+                        .let { Result.Success(it) }
+            }
+        }.flowOn(dispatcher)
+
+    private fun filterByGenres(items: List<Film>, genre: String?): List<Film> = when {
+        genre.isNullOrEmpty() -> items
+        else -> items.filter { film -> film.genres.find { it == genre } != null }
+    }
+
+    private fun mapToGenresAndFilms(items: List<Film>): FilmsAndGenres {
+        val genres = TreeSet<String> { o1, o2 -> o1.compareTo(o2) }
+        items.forEach { genres.addAll(it.genres) }
+        return FilmsAndGenres(
+            films = items,
+            genres = genres
+        )
+    }
 
 }

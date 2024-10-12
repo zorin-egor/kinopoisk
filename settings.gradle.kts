@@ -30,4 +30,8 @@ include(":core:network")
 include(":core:database")
 include(":core:data")
 include(":core:domain")
- 
+include(":core:ui")
+include(":core:navigation")
+
+include(":features:films")
+include(":features:film_details")
