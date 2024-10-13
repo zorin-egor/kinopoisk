@@ -23,24 +23,27 @@ class GetFilmsUseCase(
             when(result) {
                 Result.Loading -> Result.Loading
                 is Result.Error -> result
-                is Result.Success -> filterByGenres(result.data, filter)
-                        .let(::mapToGenresAndFilms)
-                        .let { Result.Success(it) }
+                is Result.Success -> {
+                    val genres = mapToGenresAndFilms(result.data)
+                    val filtered = filterByGenres(result.data, filter)
+                    Result.Success(FilmsAndGenres(
+                        films = filtered,
+                        genres = genres
+                    ))
+                }
             }
         }.flowOn(dispatcher)
 
     private fun filterByGenres(items: List<Film>, genre: String?): List<Film> = when {
         genre.isNullOrEmpty() -> items
         else -> items.filter { film -> film.genres.find { it == genre } != null }
+            .sortedBy { it.name }
     }
 
-    private fun mapToGenresAndFilms(items: List<Film>): FilmsAndGenres {
-        val genres = TreeSet<String> { o1, o2 -> o1.compareTo(o2) }
-        items.forEach { genres.addAll(it.genres) }
-        return FilmsAndGenres(
-            films = items,
-            genres = genres
-        )
-    }
+    private fun mapToGenresAndFilms(items: List<Film>): Set<String> =
+        TreeSet<String> { o1, o2 -> o1.compareTo(o2) }.apply {
+            items.forEach { film -> addAll(film.genres) }
+            remove("")
+        }
 
 }
