@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="feature_films_title">Films</string>
+    <string name="feature_films_title">Фильмы</string>
+    <string name="feature_films_genres">Жанры</string>
+    <string name="feature_films_films">Фильмы</string>
 </resources>
 

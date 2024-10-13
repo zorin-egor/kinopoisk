@@ -15,3 +15,8 @@ data class GenreUi(
     val isChecked: Boolean,
     val genre: String
 )
+
+val emptyGenre: GenreUi = GenreUi(
+    isChecked = false,
+    genre = ""
+)

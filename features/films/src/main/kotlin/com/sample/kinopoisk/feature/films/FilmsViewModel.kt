@@ -23,10 +23,10 @@ class FilmsViewModel(
 
     val action: SharedFlow<FilmsActions> = _action.asSharedFlow()
 
-    private val _checked = MutableStateFlow<GenreUi?>(null)
+    private val _checked = MutableStateFlow<GenreUi>(emptyGenre)
 
     val uiState: StateFlow<FilmsUiState> = _checked.flatMapLatest {
-            getFilmsUseCase(filter = it?.genre)
+            getFilmsUseCase(filter = if (it.isChecked) it.genre else "")
         }.mapNotNull { result ->
             when(result) {
                 Result.Loading -> return@mapNotNull null
@@ -45,8 +45,9 @@ class FilmsViewModel(
             initialValue = FilmsUiState.Loading
         )
 
-    fun checkGenre(genre: GenreUi?) {
-        _checked.tryEmit(genre)
+    fun checkGenre(genre: GenreUi) {
+        val isChecked = if (genre.genre == _checked.value.genre) !genre.isChecked else true
+        _checked.tryEmit(genre.copy(isChecked = isChecked))
     }
 
     private fun FilmsAndGenres.toUiSuccess() = FilmsUiState.Success(
@@ -55,7 +56,7 @@ class FilmsViewModel(
     )
 
     private fun String.toGenreUi() = GenreUi(
-        isChecked = this == _checked.value?.genre && _checked.value?.isChecked == true,
+        isChecked = this == _checked.value.genre && _checked.value.isChecked,
         genre = this
     )
 
