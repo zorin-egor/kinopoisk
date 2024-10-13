@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.sample.kinopoisk.core.navigation.NavigationCommands
 import com.sample.kinopoisk.core.navigation.NavigationViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -23,7 +23,7 @@ class FilmDetailsFragment : Fragment() {
         get() = arguments?.getLong(KEY_ID)
             ?: throw IllegalStateException("Unknown state, id must be set.")
 
-    private val navigation by activityViewModels<NavigationViewModel>()
+    private val navigation by activityViewModel<NavigationViewModel>()
     private val filmDetailsViewModel by viewModel<FilmDetailsViewModel> { parametersOf(id) }
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class FilmDetailsFragment : Fragment() {
         setContent {
             FilmDetailsScreen(
                 state = filmDetailsViewModel.uiState,
-                onItemClick = { id -> navigation.navigateTo(NavigationCommands.Back) },
+                onBackClick = { navigation.navigateTo(NavigationCommands.Back) },
                 onShowSnackbar = { s1, s2 -> true },
             )
         }

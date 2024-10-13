@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="feature_film_details_title">Film details</string>
+    <string name="feature_film_details_title">Описание фильма</string>
+    <string name="feature_film_details_year">год</string>
+    <string name="feature_film_details_kinopoisk">КиноПоиск</string>
 </resources>
 
