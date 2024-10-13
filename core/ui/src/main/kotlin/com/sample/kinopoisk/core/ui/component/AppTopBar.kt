@@ -2,7 +2,6 @@
 
 package com.sample.kinopoisk.core.ui.component
 
-import androidx.annotation.StringRes
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -16,26 +15,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.sample.kinopoisk.core.ui.icon.AppIcons
 import com.sample.kinopoisk.core.ui.theme.AppTheme
 
 @Composable
 fun AppTopBar(
+    modifier: Modifier = Modifier,
     actionIcon: ImageVector? = null,
     actionIconContentDescription: String? = null,
-    @StringRes titleRes: Int? = null,
+    title: String? = null,
     navigationIcon: ImageVector? = null,
     navigationIconContentDescription: String? = null,
-    modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         title = {
-            if (titleRes != null) {
-                Text(text = stringResource(id = titleRes))
+            if (title != null) {
+                Text(
+                    text = title,
+                    fontSize = 18.sp,
+                    maxLines = 1,
+                    fontWeight = FontWeight.Medium,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
         },
         navigationIcon = {
@@ -44,7 +52,6 @@ fun AppTopBar(
                     Icon(
                         imageVector = navigationIcon,
                         contentDescription = navigationIconContentDescription,
-                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -55,7 +62,6 @@ fun AppTopBar(
                     Icon(
                         imageVector = actionIcon,
                         contentDescription = actionIconContentDescription,
-                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -65,14 +71,47 @@ fun AppTopBar(
     )
 }
 
+@Composable
+fun AppTopBarColored(
+    modifier: Modifier = Modifier,
+    actionIcon: ImageVector? = null,
+    actionIconContentDescription: String? = null,
+    title: String? = null,
+    navigationIcon: ImageVector? = null,
+    navigationIconContentDescription: String? = null,
+    onNavigationClick: () -> Unit = {},
+    onActionClick: () -> Unit = {},
+) {
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val titleColor = MaterialTheme.colorScheme.onPrimary
+
+    AppTopBar(
+        actionIcon = actionIcon,
+        actionIconContentDescription = actionIconContentDescription,
+        title = title,
+        navigationIcon = navigationIcon,
+        navigationIconContentDescription = navigationIconContentDescription,
+        modifier = modifier,
+        onNavigationClick = onNavigationClick,
+        onActionClick = onActionClick,
+        colors = TopAppBarColors(
+            containerColor = primaryColor,
+            scrolledContainerColor = primaryColor,
+            navigationIconContentColor = titleColor,
+            titleContentColor = titleColor,
+            actionIconContentColor = titleColor
+        )
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview("Top App Bar")
 @Composable
 private fun AppTopBarPreview() {
     AppTheme {
         AppTopBar(
-            titleRes = android.R.string.untitled,
-            actionIcon = AppIcons.Settings,
+            title = stringResource(android.R.string.untitled),
+            actionIcon = AppIcons.Empty,
             actionIconContentDescription = "Action icon",
             navigationIcon = AppIcons.ArrowBack,
             navigationIconContentDescription = "Navigation icon",

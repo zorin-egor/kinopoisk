@@ -9,10 +9,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 @VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(
     primary = Blue1,
-    secondary = Blue1,
-    tertiary = Blue1,
+    onPrimary = White1,
+    secondary = Yellow1,
+    onSecondary = Black,
     background = White1,
-    surface = White1,
+    onBackground = Black,
+    surface = Grey1,
+    onSurfaceVariant = Grey2,
     error = Red1,
     outline = Blue1,
 )
@@ -24,7 +27,6 @@ fun AppTheme(
     CompositionLocalProvider {
         MaterialTheme(
             colorScheme = LightDefaultColorScheme,
-            typography = Typography,
             content = content,
         )
     }

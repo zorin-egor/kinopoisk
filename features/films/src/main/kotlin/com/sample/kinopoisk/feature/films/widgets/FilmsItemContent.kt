@@ -6,10 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -21,16 +19,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.sample.kinopoisk.core.model.Film
-import com.sample.kinopoisk.core.ui.icon.AppIcons
+import com.sample.kinopoisk.core.ui.R
+import com.sample.kinopoisk.core.ui.theme.Grey1
 
 @Composable
 fun FilmsItemContent(
@@ -38,45 +37,43 @@ fun FilmsItemContent(
     onItemClick: (Film) -> Unit,
     modifier: Modifier
 ) {
-    var isLoading by remember { mutableStateOf(true) }
-    var isError by remember { mutableStateOf(false) }
+    var isSuccess by remember { mutableStateOf(false) }
     val imageLoader = rememberAsyncImagePainter(
         model = item.imageUrl,
-        onState = { state ->
-            isLoading = state is AsyncImagePainter.State.Loading
-            isError = state is AsyncImagePainter.State.Error
-        },
+        onSuccess = { isSuccess = true }
     )
 
     Column(
-        modifier = Modifier.size(width = 160.dp, height = 270.dp)
-            .clickable(onClick = { onItemClick(item) })
+        modifier = modifier.clickable(
+            interactionSource = null,
+            indication = null,
+            onClick = { onItemClick(item) }
+        )
     ) {
 
-        Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(222.dp)
-                .background(color = Color.Red)
-        ) {
-            if (isLoading || isError) {
+        Box {
+            if (!isSuccess) {
                 Image(
-                    imageVector = AppIcons.ArrowBack,
+                    painter = painterResource(R.drawable.ic_no_image),
                     contentDescription = null,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier.fillMaxSize()
+                    contentScale = ContentScale.Inside,
+                    modifier = Modifier.align(Alignment.Center)
+                        .fillMaxWidth()
+                        .height(222.dp)
                         .align(Alignment.Center)
+                        .clip(RoundedCornerShape(size = 4.dp))
+                        .background(color = Grey1)
                 )
             }
 
             Image(
                 painter = imageLoader,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .background(color = Color.Gray)
-                    .align(Alignment.Center)
                     .fillMaxWidth()
+                    .height(222.dp)
+                    .align(Alignment.Center)
                     .clip(RoundedCornerShape(size = 4.dp))
             )
         }
@@ -87,8 +84,10 @@ fun FilmsItemContent(
             text = item.localizedName,
             maxLines = 2,
             fontSize = 16.sp,
+            lineHeight = 20.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Start,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.align(Alignment.Start)
                 .fillMaxWidth()
                 .wrapContentHeight()

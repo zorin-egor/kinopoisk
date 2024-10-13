@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Kinopoisk" parent="android:Theme.Material.Light.NoActionBar"/>
 
-    <style name="App.Theme.Kinopoisk" parent="android:Theme.Material.Light.NoActionBar"/>
+    <style name="App.Theme.Kinopoisk" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/blue_1</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+    </style>
 
     <style name="Splash.Theme.Kinopoisk" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>

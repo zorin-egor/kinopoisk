@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_unknown">Неизвестная ошибка</string>ё
+    <string name="error_networking">Ошибка подключения сети</string>
+
+    <string name="empty_placeholder_header">Нет данных</string>
+    <string name="empty_placeholder_title">Нет данных для отображения.\n Проверьте подключение и попробуйте снова.</string>
+
+    <string name="common_retry">Повторить</string>
+</resources>
