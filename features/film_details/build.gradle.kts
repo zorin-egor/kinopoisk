@@ -16,6 +16,4 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.navigation.fragment)
-
-    testImplementation(libs.androidx.test.core)
 }
