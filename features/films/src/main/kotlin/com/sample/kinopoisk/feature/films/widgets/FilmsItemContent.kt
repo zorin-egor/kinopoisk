@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.sample.kinopoisk.core.model.Film
 import com.sample.kinopoisk.core.ui.R
-import com.sample.kinopoisk.core.ui.theme.Grey1
 
 @Composable
 fun FilmsItemContent(
@@ -62,7 +62,7 @@ fun FilmsItemContent(
                         .height(222.dp)
                         .align(Alignment.Center)
                         .clip(RoundedCornerShape(size = 4.dp))
-                        .background(color = Grey1)
+                        .background(color = MaterialTheme.colorScheme.surface)
                 )
             }
 

@@ -35,7 +35,6 @@ import com.sample.kinopoisk.core.ui.component.CircularContent
 import com.sample.kinopoisk.core.ui.component.SimplePlaceholderContent
 import com.sample.kinopoisk.core.ui.component.getLazyListHeight
 import com.sample.kinopoisk.core.ui.icon.AppIcons
-import com.sample.kinopoisk.core.ui.theme.Yellow1
 import com.sample.kinopoisk.feature.films.widgets.FilmsItemContent
 import com.sample.kinopoisk.feature.films.widgets.GenreItemContent
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,7 +63,7 @@ fun FilmsScreen(
         )
 
         when(val item = uiState.value) {
-            FilmsUiState.Loading -> CircularContent(color = Yellow1)
+            FilmsUiState.Loading -> CircularContent()
             FilmsUiState.Empty -> SimplePlaceholderContent(
                 image = AppIcons.Empty,
                 header = stringResource(com.sample.kinopoisk.core.ui.R.string.empty_placeholder_header),
