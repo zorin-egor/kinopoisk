@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.sample.kinopoisk.core.navigation.NavigationCommands
 import com.sample.kinopoisk.core.navigation.NavigationViewModel
+import com.sample.kinopoisk.core.ui.theme.AppTheme
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -35,11 +38,13 @@ class FilmDetailsFragment : Fragment() {
     ).apply {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnDetachedFromWindow)
         setContent {
-            FilmDetailsScreen(
-                state = filmDetailsViewModel.uiState,
-                onBackClick = { navigation.navigateTo(NavigationCommands.Back) },
-                onShowSnackbar = { s1, s2 -> true },
-            )
+            AppTheme {
+                FilmDetailsScreen(
+                    state = filmDetailsViewModel.uiState,
+                    onBackClick = { navigation.navigateTo(NavigationCommands.Back) },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 

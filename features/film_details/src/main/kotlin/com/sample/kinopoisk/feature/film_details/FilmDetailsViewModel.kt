@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.sample.kinopoisk.core.common.result.Result
 import com.sample.kinopoisk.core.domain.usecases.GetFilmByIdUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 
@@ -17,14 +19,17 @@ class FilmDetailsViewModel(
     private val id: Long,
 ) : ViewModel() {
 
-    private val _action = MutableSharedFlow<FilmDetailsActions>(replay = 0, extraBufferCapacity = 1)
+    private val _action = MutableSharedFlow<FilmDetailsActions>(replay = 1, extraBufferCapacity = 1)
 
     val action: SharedFlow<FilmDetailsActions> = _action.asSharedFlow()
 
-    val uiState: StateFlow<FilmDetailsUiState> = getFilmByIdUseCase(id = id)
-        .mapNotNull { result ->
+    private val _retry = MutableStateFlow<Boolean>(false)
+
+    val uiState: StateFlow<FilmDetailsUiState> = _retry.flatMapLatest {
+            getFilmByIdUseCase(id = id)
+        }.mapNotNull { result ->
             when(result) {
-                Result.Loading -> return@mapNotNull null
+                Result.Loading -> FilmDetailsUiState.Loading
                 is Result.Error -> {
                     _action.emit(FilmDetailsActions.ShowError(UnknownError()))
                     FilmDetailsUiState.Empty
@@ -32,8 +37,13 @@ class FilmDetailsViewModel(
                 is Result.Success -> FilmDetailsUiState.Success(result.data)
             }
         }.stateIn(scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.Lazily,
             initialValue = FilmDetailsUiState.Loading
         )
+
+    fun retry() {
+        _retry.tryEmit(!_retry.value)
+        _action.tryEmit(FilmDetailsActions.None)
+    }
 
 }
