@@ -7,6 +7,7 @@ import coil.request.CachePolicy
 import coil.util.DebugLogger
 import com.sample.kinopoisk.core.network.BuildConfig
 import com.sample.kinopoisk.core.network.dev.DevAssetManager
+import com.sample.kinopoisk.core.network.interceptors.NetworkInterceptor
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,7 +27,8 @@ class NetworkModule {
     }
 
     @Singleton
-    fun okHttpCallFactory(): OkHttpClient = OkHttpClient.Builder()
+    fun okHttpCallFactory(context: Context): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(NetworkInterceptor(context))
         .addInterceptor(
             HttpLoggingInterceptor()
                 .apply {
