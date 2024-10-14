@@ -10,4 +10,6 @@ interface FilmsRepository {
 
     fun getFilm(id: Long): Flow<Result<Film>>
 
+    suspend fun insert(item: Film)
+
 }

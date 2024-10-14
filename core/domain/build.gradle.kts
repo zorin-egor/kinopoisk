@@ -9,4 +9,6 @@ android {
 dependencies {
     api(projects.core.data)
     api(projects.core.model)
+
+    testImplementation(libs.kotlinx.coroutines.test)
 }

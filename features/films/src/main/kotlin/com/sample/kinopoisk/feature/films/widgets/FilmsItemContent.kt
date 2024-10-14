@@ -69,7 +69,7 @@ fun FilmsItemContent(
             Image(
                 painter = imageLoader,
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(222.dp)

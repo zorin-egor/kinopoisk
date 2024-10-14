@@ -17,5 +17,5 @@ dependencies {
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.navigation.fragment)
 
-    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

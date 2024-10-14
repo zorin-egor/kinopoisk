@@ -14,7 +14,7 @@ import retrofit2.Response
 import java.io.InputStream
 
 
-internal class DevNetworkDataSource(
+class DevNetworkDataSource(
     private val networkJson: Json,
     @Dispatcher(Dispatchers.IO) private val dispatcher: CoroutineDispatcher,
     private val assets: DevAssetManager = JvmUnitTestDevAssetManager,

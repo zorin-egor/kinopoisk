@@ -24,7 +24,7 @@ class DevNetworkDataSourceTest {
         localizedName = "Побег из Шоушенка",
         name = "The Shawshank Redemption",
         rating = 9.196,
-        year=1994
+        year = 1994
     )
 
     private val lastFilm: NetworkFilm = NetworkFilm(
@@ -35,7 +35,7 @@ class DevNetworkDataSourceTest {
         localizedName = "Мы не можем жить без космоса",
         name = "Мы не можем жить без космоса",
         rating = null,
-        year=2014
+        year = 2014
     )
 
 

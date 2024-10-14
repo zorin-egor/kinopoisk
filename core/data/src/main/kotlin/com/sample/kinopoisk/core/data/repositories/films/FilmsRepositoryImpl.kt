@@ -7,6 +7,7 @@ import com.sample.kinopoisk.core.data.mapper.toEntities
 import com.sample.kinopoisk.core.data.mapper.toModel
 import com.sample.kinopoisk.core.data.mapper.toModels
 import com.sample.kinopoisk.core.database.dao.FilmsDao
+import com.sample.kinopoisk.core.database.mappers.toEntity
 import com.sample.kinopoisk.core.database.model.FilmEntity
 import com.sample.kinopoisk.core.database.model.toModel
 import com.sample.kinopoisk.core.database.model.toModels
@@ -102,4 +103,6 @@ internal class FilmsRepositoryImpl(
         Timber.e(it)
         emit(Result.Error(it))
     }
+
+    override suspend fun insert(item: Film) = filmsDao.insert(item.toEntity())
 }
