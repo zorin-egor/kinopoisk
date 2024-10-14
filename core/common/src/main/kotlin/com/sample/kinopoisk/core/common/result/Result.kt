@@ -32,8 +32,7 @@ fun <T> Flow<Result<T>>.combineLeftFirst(flow: Flow<Result<T>>): Flow<Result<T>>
     combine(this, flow) { first, second ->
         when {
             first is Result.Success -> first
-            second is Result.Success -> second
-            else -> first
+            else -> second
         }
     }
 
