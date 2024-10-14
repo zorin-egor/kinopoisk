@@ -18,7 +18,8 @@ class GetFilmsUseCase(
     @Dispatcher(Dispatchers.IO) val dispatcher: CoroutineDispatcher,
 ) {
 
-    operator fun invoke(filter: String? = null): Flow<Result<FilmsAndGenres>> = repository.getFilms()
+    operator fun invoke(filter: String? = null): Flow<Result<FilmsAndGenres>> = repository.
+    getFilms()
         .map { result ->
             when(result) {
                 Result.Loading -> Result.Loading
@@ -37,8 +38,7 @@ class GetFilmsUseCase(
     private fun filterByGenres(items: List<Film>, genre: String?): List<Film> = when {
         genre.isNullOrEmpty() -> items
         else -> items.filter { film -> film.genres.find { it == genre } != null }
-            .sortedBy { it.name }
-    }
+    }.sortedBy { it.localizedName }
 
     private fun mapToGenresAndFilms(items: List<Film>): Set<String> =
         TreeSet<String> { o1, o2 -> o1.compareTo(o2) }.apply {

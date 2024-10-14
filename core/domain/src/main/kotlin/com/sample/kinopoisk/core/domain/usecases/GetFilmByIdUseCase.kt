@@ -4,7 +4,7 @@ import com.sample.kinopoisk.core.common.di.Dispatcher
 import com.sample.kinopoisk.core.common.di.Dispatchers
 import com.sample.kinopoisk.core.common.result.Result
 import com.sample.kinopoisk.core.data.repositories.films.FilmsRepository
-import com.sample.kinopoisk.core.domain.roundTo
+import com.sample.kinopoisk.core.domain.ext.roundTo
 import com.sample.kinopoisk.core.model.Film
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
