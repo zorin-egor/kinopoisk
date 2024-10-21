@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
 
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.coil.kt)
 }

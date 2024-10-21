@@ -1,6 +1,8 @@
 package com.sample.kinopoisk
 
 import android.app.Application
+import coil.ImageLoader
+import coil.ImageLoaderFactory
 import com.sample.kinopoisk.core.common.di.CommonModule
 import com.sample.kinopoisk.core.common.di.NavigationModule
 import com.sample.kinopoisk.core.data.di.DataModule
@@ -10,6 +12,7 @@ import com.sample.kinopoisk.core.network.di.NetworkModule
 import com.sample.kinopoisk.di.AppModule
 import com.sample.kinopoisk.feature.film_details.di.FilmDetailsModule
 import com.sample.kinopoisk.feature.films.di.FilmsModule
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +20,11 @@ import org.koin.ksp.generated.module
 import timber.log.Timber
 
 
-class App : Application() {
+class App : Application(), ImageLoaderFactory {
+
+    private val imageLoader: ImageLoader by inject()
+
+    override fun newImageLoader(): ImageLoader = imageLoader
 
     override fun onCreate() {
         super.onCreate()
