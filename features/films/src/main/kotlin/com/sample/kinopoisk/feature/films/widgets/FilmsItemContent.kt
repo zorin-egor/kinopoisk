@@ -59,7 +59,7 @@ fun FilmsItemContent(
                     contentScale = ContentScale.Inside,
                     modifier = Modifier.align(Alignment.Center)
                         .fillMaxWidth()
-                        .height(222.dp)
+                        .height(220.dp)
                         .align(Alignment.Center)
                         .clip(RoundedCornerShape(size = 4.dp))
                         .background(color = MaterialTheme.colorScheme.surface)
@@ -72,7 +72,7 @@ fun FilmsItemContent(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(222.dp)
+                    .height(220.dp)
                     .align(Alignment.Center)
                     .clip(RoundedCornerShape(size = 4.dp))
             )
